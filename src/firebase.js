@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from 'firebase/firestore'
 
+// Config from my firebase app I created
 const firebaseConfig = {
     apiKey: "AIzaSyBn1LdWi3GhrSNqT919ZsI-0aIBST812zA",
     authDomain: "todo-dane.firebaseapp.com",

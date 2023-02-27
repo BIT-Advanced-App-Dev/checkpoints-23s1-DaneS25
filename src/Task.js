@@ -7,14 +7,16 @@ import {db} from './firebase'
 
 function Task({id, title, description, completed}) {
 
+  // Declare state variables
   const [checked, setChecked] = useState(completed)
   const [open, setOpen] = useState({edit:false, view:false})
 
+  // Close view/edit Modal
   const handleClose = () => {
     setOpen({edit:false, view:false})
   }
 
-  /* function to update firestore */
+  // Function to update firestore
   const handleChange = async () => {
     const taskDocRef = doc(db, 'tasks', id)
     try{
@@ -26,7 +28,7 @@ function Task({id, title, description, completed}) {
     }
   }
 
-  /* function to delete a document from firstore */ 
+  // Function to delete a document from firstore
   const handleDelete = async () => {
     const taskDocRef = doc(db, 'tasks', id)
     try{
@@ -39,6 +41,7 @@ function Task({id, title, description, completed}) {
   return (
     <div className={`task ${checked && 'task--borderColor'}`}>
       <div>
+        {/* Checkbox input */}
         <input 
           id={`checkbox-${id}`} 
           className='checkbox-custom'
@@ -46,6 +49,7 @@ function Task({id, title, description, completed}) {
           checked={checked}
           onChange={handleChange}
           type="checkbox" />
+        {/* Checkbox label */}
         <label 
           htmlFor={`checkbox-${id}`} 
           className="checkbox-custom-label" 
@@ -56,13 +60,16 @@ function Task({id, title, description, completed}) {
         <p>{description}</p>
         <div className='task__buttons'>
           <div className='task__deleteNedit'>
+            {/* Edit button */}
             <button 
               className='task__editButton' 
               onClick={() => setOpen({...open, edit : true})}>
               Edit
             </button>
+            {/* Delete button */}
             <button className='task__deleteButton' onClick={handleDelete}>Delete</button>
           </div>
+          {/* View button */}
           <button 
             onClick={() => setOpen({...open, view: true})}>
             View
@@ -70,6 +77,7 @@ function Task({id, title, description, completed}) {
         </div>
       </div>
 
+      {/* View task modal */}
       {open.view &&
         <TaskItem 
           onClose={handleClose} 
@@ -78,6 +86,7 @@ function Task({id, title, description, completed}) {
           open={open.view} />
       }
 
+      {/* Edit task modal */}
       {open.edit &&
         <EditTask 
           onClose={handleClose} 
