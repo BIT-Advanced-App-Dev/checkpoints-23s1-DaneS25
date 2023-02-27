@@ -10,6 +10,10 @@
     align-items: center;
     box-sizing: border-box;
     border-radius: 8px !important;
+    transition: all .2s ease-in-out;
+  }
+  .task:hover {
+    transform: scale(1.1);
   }
   
   .task--borderColor{
