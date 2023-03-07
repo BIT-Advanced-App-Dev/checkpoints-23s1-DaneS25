@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore } from 'firebase/firestore'
+import { enableIndexedDbPersistence, getFirestore } from 'firebase/firestore'
 
 // Config from my firebase app I created
 const firebaseConfig = {
@@ -15,5 +15,5 @@ const firebaseConfig = {
 // Initialize Firebase and Firestore
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
-
+enableIndexedDbPersistence(db)
 export {db}
