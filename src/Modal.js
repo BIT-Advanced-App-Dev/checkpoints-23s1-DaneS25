@@ -2,7 +2,6 @@
 Modal component.
 Handles open and closing of modals
 */
-
 import './modal.css'
 
 function Modal({open, modalLabel, children, custom_modal, onClose}) {
