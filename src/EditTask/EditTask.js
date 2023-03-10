@@ -3,11 +3,11 @@ Edit Task component.
 Click edit to edit an existing task in the list.
 */
 
-import Modal from "./Modal"
+import Modal from "../Modal/Modal"
 import {useState} from 'react'
 import './editTask.css'
 import { doc, updateDoc } from "firebase/firestore"; // Import updateDoc function from Firestore library
-import {db} from './firebase'
+import {db} from '../firebase'
 
 function EditTask({open, onClose, toEditTitle, toEditDescription, id}) {
 

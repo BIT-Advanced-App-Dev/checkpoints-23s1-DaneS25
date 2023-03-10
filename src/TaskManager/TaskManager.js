@@ -5,11 +5,11 @@ Renders said data into the app
 */
 
 import './taskManager.css'
-import Task from './Task'
+import Task from '../Task/Task'
 import {useState, useEffect} from 'react'
 import {collection, query, orderBy, onSnapshot} from "firebase/firestore"
-import {db} from './firebase'
-import AddTask from './AddTask'
+import {db} from '../firebase'
+import AddTask from '../AddTask/AddTask'
 
 function TaskManager() {
 

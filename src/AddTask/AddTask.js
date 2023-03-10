@@ -3,10 +3,10 @@ Add Task component.
 Click add task to add a new title and description of task
 */
 
-import Modal from "./Modal"
+import Modal from "../Modal/Modal"
 import {useState} from 'react'
 import './addTask.css'
-import {db} from './firebase' // Importing the Firebase database configuration
+import {db} from '../firebase' // Importing the Firebase database configuration
 import {collection, addDoc, Timestamp} from 'firebase/firestore' // Importing Firebase Firestore functionalities
 
 function AddTask({onClose, open}) {
