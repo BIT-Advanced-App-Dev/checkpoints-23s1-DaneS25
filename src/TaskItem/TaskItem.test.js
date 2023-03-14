@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import TaskItem from './TaskItem';
 
+
+// Render task item, check for title and description
 describe('TaskItem', () => {
   it('renders the title and description', () => {
     const title = 'Test Title';

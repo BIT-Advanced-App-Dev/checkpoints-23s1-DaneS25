@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Task from './Task';
 
+// Check single task matches snapshot of TEST TASK
 test('renders task component', () => {
   const { asFragment } = render(
     <Task 
