@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskManager renders correctly 1`] = `
+<div
+  class="taskManager"
+>
+  <header>
+    Task Manager
+  </header>
+  <div
+    class="taskManager__container"
+  >
+    <button
+      name="Add task +"
+    >
+      Add task +
+    </button>
+    <div
+      class="taskManager__tasks"
+    />
+  </div>
+</div>
+`;

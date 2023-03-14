@@ -33,10 +33,10 @@ function EditTask({open, onClose, toEditTitle, toEditDescription, id}) {
 
   return (
     <Modal modalLabel='Edit Task' onClose={onClose} open={open}>
-      <form onSubmit={handleUpdate} className='editTask'>
+      <form onSubmit={handleUpdate} className='editTask' name='editTask'>
         <input type='text' name='title' onChange={(e) => setTitle(e.target.value.toUpperCase())} value={title}/>
         <textarea onChange={(e) => setDescription(e.target.value)} value={description}></textarea>
-        <button type='submit'>Edit</button> {/* Button that will trigger the handleUpdate function when clicked */}
+        <button type='submit' name='editTask'>Edit</button> {/* Button that will trigger the handleUpdate function when clicked */}
       </form> 
     </Modal>
   )

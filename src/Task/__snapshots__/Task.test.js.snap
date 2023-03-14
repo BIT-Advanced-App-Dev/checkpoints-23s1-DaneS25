@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders task component 1`] = `
+<DocumentFragment>
+  <div
+    class="task false"
+  >
+    <div>
+      <input
+        class="checkbox-custom"
+        id="checkbox-1"
+        name="checkbox"
+        type="checkbox"
+      />
+      <label
+        class="checkbox-custom-label"
+        for="checkbox-1"
+      />
+    </div>
+    <div
+      class="task__body"
+    >
+      <h2>
+        TEST TASK
+      </h2>
+      <p>
+        This is a test task
+      </p>
+      <div
+        class="task__buttons"
+      >
+        <div
+          class="task__deleteNedit"
+        >
+          <button
+            class="task__editButton"
+          >
+            Edit
+          </button>
+          <button
+            class="task__deleteButton"
+          >
+            Delete
+          </button>
+        </div>
+        <button>
+          View
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

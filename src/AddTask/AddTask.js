@@ -32,7 +32,7 @@ function AddTask({onClose, open}) {
   }
 
   return (
-    <Modal modalLable='Add Task' onClose={onClose} open={open}> {/* Render in the Modal component with props modalLabel, onClose, and open */}
+    <Modal modalLabel='Add Task' onClose={onClose} open={open}> {/* Render in the Modal component with props modalLabel, onClose, and open */}
       <form onSubmit={handleSubmit} className='addTask' name='addTask'>
         <input 
           type='text' 
@@ -41,10 +41,11 @@ function AddTask({onClose, open}) {
           value={title}
           placeholder='Enter title'/>
         <textarea 
+          name='description'
           onChange={(e) => setDescription(e.target.value)}
-          placeholder='Enter task decription'
+          placeholder='Enter task description'
           value={description}></textarea>
-        <button type='submit'>Done</button> {/* Button that will trigger the handleSubmit function when clicked */}
+        <button type='submit' name='addTask'>Done</button> {/* Button that will trigger the handleSubmit function when clicked */}
       </form> 
     </Modal>
   )

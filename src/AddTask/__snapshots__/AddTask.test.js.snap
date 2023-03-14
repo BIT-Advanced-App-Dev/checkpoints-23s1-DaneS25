@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders AddTask component correctly 1`] = `
+<div
+  className="modalContainer"
+  onClick={[Function]}
+>
+  <div
+    className="modal undefined"
+  >
+    <div
+      className="modal__head"
+    >
+      <h2>
+        Add Task
+      </h2>
+      <span
+        className="modal__close"
+        onClick={[MockFunction]}
+      >
+        x
+      </span>
+    </div>
+     
+    <form
+      className="addTask"
+      name="addTask"
+      onSubmit={[Function]}
+    >
+      <input
+        name="title"
+        onChange={[Function]}
+        placeholder="Enter title"
+        type="text"
+        value="TEST TITLE"
+      />
+      <textarea
+        name="description"
+        onChange={[Function]}
+        placeholder="Enter task description"
+        value="Test Description"
+      />
+      <button
+        name="addTask"
+        type="submit"
+      >
+        Done
+      </button>
+       
+    </form>
+  </div>
+</div>
+`;

@@ -35,6 +35,7 @@ function TaskManager() {
       <header>Task Manager</header>
       <div className='taskManager__container'>
         <button 
+          name='Add task +'
           onClick={() => setOpenAddModal(true)}>
           Add task +
         </button>
