@@ -1,30 +1,48 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { act } from 'react-dom/test-utils';
-import AddTask from './AddTask';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import AddTaskMock from './AddTaskMock';
 
-it('renders AddTask component correctly', () => {
-  const onClose = jest.fn(); // Create a mock function for the onClose prop
-  const component = renderer.create(<AddTask onClose={onClose} open={true} />); // Create the component
-  let tree = component.toJSON(); // Get the initial snapshot
+describe('AddTaskMock', () => {
+  jest.setTimeout(10000);
+  it('calls mockAddDoc when "Done" button is clicked', async () => {
+    const mockAddDoc = jest.fn().mockResolvedValue({
+      title: 'Mock Task Title',
+      description: 'Mock Task Description',
+      completed: false,
+      created: { seconds: 1234567890 }
+    });
+    const handleClose = jest.fn();
 
-  // Simulate user input
-  act(() => {
-    const titleInput = component.root.findByProps({ name: 'title' }); // Find the title input element
-    titleInput.props.onChange({ target: { value: 'Test Title' } }); // Update the title state variable
-    const descriptionInput = component.root.findByProps({ name: 'description' }); // Find the description input element
-    descriptionInput.props.onChange({ target: { value: 'Test Description' } }); // Update the description state variable
-  });
+    const { asFragment } = render(<AddTaskMock onClose={handleClose} open={true} mockAddDoc={mockAddDoc} />);
 
-  // Get a new snapshot after the state variables have been updated
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+    const titleInput = screen.getByPlaceholderText('Enter title');
+    const descriptionInput = screen.getByPlaceholderText('Enter task description');
+    const doneButton = screen.getByRole('button', { name: 'Done' });
 
-  // Simulate form submission
-  act(() => {
-    const form = component.root.findByProps({ name: 'addTask' }); // Find the form element
-    form.props.onSubmit({ preventDefault: jest.fn() }); // Submit the form with a mock event object
+    fireEvent.change(titleInput, { target: { value: 'Mock Task Title' } });
+    fireEvent.change(descriptionInput, { target: { value: 'Mock Task Description' } });
+
+    fireEvent.click(doneButton);
+
+    await waitFor(() => {
+      expect(mockAddDoc).toHaveBeenCalledTimes(1);
+      expect(mockAddDoc).toHaveBeenCalledWith({
+        title: 'MOCK TASK TITLE',
+        description: 'Mock Task Description',
+        completed: false,
+        created: expect.anything(),
+      });
+    }, { timeout: 5000 });
+
+    expect(asFragment()).toMatchSnapshot();
   });
 });
+
+
+
+
+
+
+
 
 

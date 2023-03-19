@@ -1,53 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders AddTask component correctly 1`] = `
-<div
-  className="modalContainer"
-  onClick={[Function]}
->
+exports[`AddTaskMock calls mockAddDoc when "Done" button is clicked 1`] = `
+<DocumentFragment>
   <div
-    className="modal undefined"
+    class="modalContainer"
   >
     <div
-      className="modal__head"
+      class="modal undefined"
     >
-      <h2>
-        Add Task
-      </h2>
-      <span
-        className="modal__close"
-        onClick={[MockFunction]}
+      <div
+        class="modal__head"
       >
-        x
-      </span>
-    </div>
-     
-    <form
-      className="addTask"
-      name="addTask"
-      onSubmit={[Function]}
-    >
-      <input
-        name="title"
-        onChange={[Function]}
-        placeholder="Enter title"
-        type="text"
-        value="TEST TITLE"
-      />
-      <textarea
-        name="description"
-        onChange={[Function]}
-        placeholder="Enter task description"
-        value="Test Description"
-      />
-      <button
+        <h2>
+          Add Task
+        </h2>
+        <span
+          class="modal__close"
+        >
+          x
+        </span>
+      </div>
+      <form
+        class="addTask"
         name="addTask"
-        type="submit"
       >
-        Done
-      </button>
-       
-    </form>
+        <input
+          name="title"
+          placeholder="Enter title"
+          type="text"
+          value="MOCK TASK TITLE"
+        />
+        <textarea
+          name="description"
+          placeholder="Enter task description"
+        >
+          Mock Task Description
+        </textarea>
+        <button
+          name="done"
+          type="submit"
+        >
+          Done
+        </button>
+      </form>
+    </div>
   </div>
-</div>
+</DocumentFragment>
 `;
