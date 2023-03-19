@@ -10,6 +10,7 @@ import {useState, useEffect} from 'react'
 import {collection, query, orderBy, onSnapshot} from "firebase/firestore"
 import {db} from '../firebase'
 import AddTask from '../AddTask/AddTask'
+import SignInButton from '../SignInButton'
 
 function TaskManager() {
 
@@ -33,6 +34,7 @@ function TaskManager() {
   return (
     <div className='taskManager'>
       <header>Task Manager</header>
+      <SignInButton />
       <div className='taskManager__container'>
         <button 
           name='Add task +'
