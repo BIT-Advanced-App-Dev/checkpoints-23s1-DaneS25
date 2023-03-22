@@ -6,7 +6,7 @@ Renders said data into the app
 
 import './taskManager.css'
 import Task from '../Task/Task'
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import {collection, query, orderBy, onSnapshot, getDocs, where} from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
 import { useAuthState } from "react-firebase-hooks/auth"
@@ -17,7 +17,7 @@ function TaskManager() {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
-  const fetchUserName = async () => {
+  const fetchUserName = useCallback(async () => {
     try {
       if (user && user.uid) {
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
@@ -29,7 +29,13 @@ function TaskManager() {
       console.error(err);
       alert("An error occurred while fetching user data");
     }
-  };
+  }, [user, setName]);
+  
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+    fetchUserName();
+  }, [user, loading, navigate, fetchUserName]);
 
   const logout = () => {
     auth.signOut();
@@ -52,12 +58,6 @@ function TaskManager() {
       unsubscribe() // Unsubscribe from the onSnapshot listener when the component unmounts
     }
   },[])
-
-  useEffect(() => {
-    if (loading) return;
-    if (!user) return navigate("/");
-    fetchUserName();
-  }, [user, loading]);
 
   return (
     <div className='taskManager'>
