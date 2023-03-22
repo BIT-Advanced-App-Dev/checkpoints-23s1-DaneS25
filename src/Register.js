@@ -25,6 +25,7 @@ function Register() {
   return (
     <div className="register">
       <div className="register__container">
+      <p className="registerHead">Register</p>
         <input
           type="text"
           className="register__textBox"

@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom"
 import { useAuthState } from "react-firebase-hooks/auth"
 import {db, auth} from '../firebase'
 import AddTask from '../AddTask/AddTask'
-import SignInButton from '../SignInButton'
 
 function TaskManager() {
   const [user, loading] = useAuthState(auth);
@@ -63,7 +62,6 @@ function TaskManager() {
   return (
     <div className='taskManager'>
     <header>Task Manager</header>
-    <SignInButton />
     <button className="logout_btn" onClick={logout}>
       Logout
     </button>

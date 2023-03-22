@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" );
+
 .reset {
     height: 100vh;
     width: 100vw;
@@ -9,22 +11,36 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    background-color: #dcdcdc;
+    background-color: #f6b9fb;
+    background: linear-gradient(90deg, rgb(248, 160, 222) 0%, rgba(247, 108, 214, 0) 50%, rgb(224, 122, 193)100%);
     padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px -9px hsl(329, 76%, 57%);
   }
   .reset__textBox {
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 6px 18px -9px hsl(329, 76%, 57%);
   }
   .reset__btn {
     padding: 10px;
     font-size: 18px;
-    margin-bottom: 10px;
+    border-radius: 5px;
     border: none;
-    color: white;
-    background-color: black;
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+  .reset__btn:hover {
+    background-color: hsl(321, 87%, 69%);
   }
   .reset div {
     margin-top: 7px;
+  }
+  .resetHead {
+    padding-bottom: 15px;
+    font-family: 'Tilt Prism', cursive;
+    font-size: 50px;
   }
