@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" );
+
+.login {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login__container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #f6b9fb;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px -9px hsl(304, 77%, 43%);
+  }
+  .login__textBox {
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 6px 18px -9px hsl(304, 77%, 43%);
+  }
+  .login__btn {
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 5px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  .login__btn:hover {
+    background-color: hsl(286, 93%, 79%);
+  }
+  .loginHead {
+    padding-bottom: 15px;
+    font-family: 'Tilt Prism', cursive;
+    font-size: 80px;
+  }

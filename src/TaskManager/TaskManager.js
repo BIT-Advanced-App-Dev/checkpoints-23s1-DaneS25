@@ -7,12 +7,35 @@ Renders said data into the app
 import './taskManager.css'
 import Task from '../Task/Task'
 import {useState, useEffect} from 'react'
-import {collection, query, orderBy, onSnapshot} from "firebase/firestore"
-import {db} from '../firebase'
+import {collection, query, orderBy, onSnapshot, getDocs, where} from "firebase/firestore"
+import { useNavigate } from "react-router-dom"
+import { useAuthState } from "react-firebase-hooks/auth"
+import {db, auth} from '../firebase'
 import AddTask from '../AddTask/AddTask'
 import SignInButton from '../SignInButton'
 
 function TaskManager() {
+  const [user, loading] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+  const fetchUserName = async () => {
+    try {
+      if (user && user.uid) {
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        setName(data.name);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred while fetching user data");
+    }
+  };
+
+  const logout = () => {
+    auth.signOut();
+    navigate("/");
+  };
 
   const [openAddModal, setOpenAddModal] = useState(false) // Open set to false
   const [tasks, setTasks] = useState([])
@@ -31,31 +54,45 @@ function TaskManager() {
     }
   },[])
 
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+    fetchUserName();
+  }, [user, loading]);
+
   return (
     <div className='taskManager'>
-      <header>Task Manager</header>
-      <SignInButton />
-      <div className='taskManager__container'>
-        <button 
-          name='Add task +'
-          onClick={() => setOpenAddModal(true)}>
-          Add task +
-        </button>
-        <div className='taskManager__tasks'>
+    <header>Task Manager</header>
+    <SignInButton />
+    <button className="logout_btn" onClick={logout}>
+      Logout
+    </button>
+    <div className="userDetails">
+      Logged in as
+      <div>{name}</div>
+      <div>{user?.email}</div>
+    </div>
+    <div className='taskManager__container'>
+      <button 
+        name='Add task +'
+        onClick={() => setOpenAddModal(true)}>
+        Add task +
+      </button>
+      <div className='taskManager__tasks'>
 
-          {/* Map over all tasks and create a Task component for each one */}
-          {tasks.map((task) => (
-            <Task
-              id={task.id}
-              key={task.id}
-              completed={task.data.completed}
-              title={task.data.title} 
-              description={task.data.description}
-            />
-          ))}
+        {/* Map over all tasks and create a Task component for each one */}
+        {tasks.map((task) => (
+          <Task
+            id={task.id}
+            key={task.id}
+            completed={task.data.completed}
+            title={task.data.title} 
+            description={task.data.description}
+          />
+        ))}
 
-        </div>
       </div>
+    </div>
 
       {/* Render the AddTask component if the 'openAddModal' state variable is true */}
       {openAddModal &&
