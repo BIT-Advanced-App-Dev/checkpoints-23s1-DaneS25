@@ -9,7 +9,7 @@ import './editTask.css'
 import { doc, updateDoc } from "firebase/firestore"; // Import updateDoc function from Firestore library
 import {db} from '../firebase'
 
-function EditTask({open, onClose, toEditTitle, toEditDescription, id}) {
+function EditTask({open, onClose, toEditTitle, toEditDescription, id, userUid}) {
 
   // Set initial state variables 'toEdit'
   const [title, setTitle] = useState(toEditTitle)
@@ -18,7 +18,7 @@ function EditTask({open, onClose, toEditTitle, toEditDescription, id}) {
   // Function to update firestore
   const handleUpdate = async (e) => {
     e.preventDefault()
-    const taskDocRef = doc(db, 'tasks', id) // Get a reference to the document to update using the ID passed as a prop
+    const taskDocRef = doc(db, `users/${userUid}/tasks`, id); // Get a reference to the document to update using the ID passed as a prop
     try{
       await updateDoc(taskDocRef, { // Update the document with the new values for title and description
         title: title,

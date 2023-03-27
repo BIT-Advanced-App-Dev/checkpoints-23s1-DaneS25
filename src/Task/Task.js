@@ -5,7 +5,7 @@ import EditTask from '../EditTask/EditTask'
 import { doc, updateDoc, deleteDoc} from "firebase/firestore";
 import {db} from '../firebase'
 
-function Task({id, title, description, completed}) {
+function Task({id, title, description, completed, userUid}) {
 
   // Declare state variables
   const [checked, setChecked] = useState(completed)
@@ -18,7 +18,7 @@ function Task({id, title, description, completed}) {
 
   // Function to update firestore
   const handleChange = async () => {
-    const taskDocRef = doc(db, 'tasks', id)
+    const taskDocRef = doc(db, `users/${userUid}/tasks`, id)
     try{
       await updateDoc(taskDocRef, {
         completed: checked
@@ -30,7 +30,7 @@ function Task({id, title, description, completed}) {
 
   // Function to delete a document from firstore
   const handleDelete = async () => {
-    const taskDocRef = doc(db, 'tasks', id)
+    const taskDocRef = doc(db, `users/${userUid}/tasks`, id)
     try{
       await deleteDoc(taskDocRef)
     } catch (err) {
@@ -93,7 +93,8 @@ function Task({id, title, description, completed}) {
           toEditTitle={title} 
           toEditDescription={description} 
           open={open.edit}
-          id={id} />
+          id={id}
+          userUid={userUid} />
       }
 
     </div>
