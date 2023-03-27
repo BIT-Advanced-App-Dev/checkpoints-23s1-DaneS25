@@ -24,6 +24,7 @@ function TaskManager() {
         const doc = await getDocs(q);
         const data = doc.docs[0].data();
         setName(data.name);
+        console.log("User name fetched:", data.name);
       }
     } catch (err) {
       console.error(err);
@@ -37,10 +38,22 @@ function TaskManager() {
     fetchUserName();
   }, [user, loading, navigate, fetchUserName]);
 
-  const logout = () => {
-    auth.signOut();
+  const logout = async () => {
+    console.log("Before sign out");
+    await auth.signOut();
+    console.log("After sign out");
     navigate("/");
   };
+  
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        navigate("/");
+      }
+    });
+  
+    return unsubscribe;
+  }, [navigate]);
 
   const [openAddModal, setOpenAddModal] = useState(false) // Open set to false
   const [tasks, setTasks] = useState([])
@@ -48,6 +61,8 @@ function TaskManager() {
   // function to get all tasks from firestore in realtime 
   useEffect(() => {
     const taskColRef = query(collection(db, 'users', user?.uid, 'tasks'), orderBy('created', 'desc')) // Firestore query to get all tasks and order by created date in descending order
+    console.log("user: ", user);
+    console.log("taskColRef: ", taskColRef);  
     const unsubscribe = onSnapshot(taskColRef, (snapshot) => { // Listen for changes to Firestore task collection
       setTasks(snapshot.docs.map(doc => ({ // Update tasks state variable with data from each Firestore document
         id: doc.id,
@@ -57,7 +72,7 @@ function TaskManager() {
     return () => {
       unsubscribe() // Unsubscribe from the onSnapshot listener when the component unmounts
     }
-  },[user?.uid])
+  },[user, user?.uid])
 
   return (
     <div className='taskManager'>
