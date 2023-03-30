@@ -16,7 +16,7 @@ import AddTask from '../AddTask/AddTask'
 function TaskManager() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/");
@@ -44,19 +44,21 @@ function TaskManager() {
 
   // function to get all tasks from firestore in realtime 
   useEffect(() => {
-    const taskColRef = query(collection(db, 'users', user?.uid, 'tasks'), orderBy('created', 'desc')) // Firestore query to get all tasks and order by created date in descending order
-    console.log("user: ", user);
-    console.log("taskColRef: ", taskColRef);  
-    const unsubscribe =  onSnapshot(taskColRef, (snapshot) => { // Listen for changes to Firestore task collection
-      setTasks(snapshot.docs.map(doc => ({ // Update tasks state variable with data from each Firestore document
-        id: doc.id,
-        data: doc.data()
-      })))
-    })
-    return () => {
-      unsubscribe() // Unsubscribe from the onSnapshot listener when the component unmounts
+    if (user && user.uid) {
+      const taskColRef = query(collection(db, 'users', user.uid, 'tasks'), orderBy('created', 'desc')); // Firestore query to get all tasks and order by created date in descending order
+      console.log("user: ", user);
+      console.log("taskColRef: ", taskColRef);  
+      const unsubscribe = onSnapshot(taskColRef, (snapshot) => { // Listen for changes to Firestore task collection
+        setTasks(snapshot.docs.map(doc => ({ // Update tasks state variable with data from each Firestore document
+          id: doc.id,
+          data: doc.data()
+        })))
+      })
+      return () => {
+        unsubscribe(); // Unsubscribe from the onSnapshot listener when the component unmounts
+      }
     }
-  },[user, user?.uid])
+  }, [user, user?.uid]);
 
   return (
     <div className='taskManager'>
@@ -66,7 +68,6 @@ function TaskManager() {
       </button>
       <div className="userDetails">
         Logged in as
-        <div>{user?.displayName}</div>
         <div>{user?.email}</div>
       </div>
       <div className='taskManager__container'>

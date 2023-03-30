@@ -21,7 +21,7 @@ function Register() {
   useEffect(() => {
     if (loading) return;
     if (user) navigate.replace("/");
-  }, [user, loading]);
+  }, [user, loading, navigate]);
   return (
     <div className="register">
       <div className="register__container">
