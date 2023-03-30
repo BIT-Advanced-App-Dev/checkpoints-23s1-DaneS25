@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebase";
+import { auth, logInWithEmailAndPassword, signInWithGoogle, db } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./login.css";
+import { doc, setDoc, getDoc, collection } from "firebase/firestore";
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -22,6 +24,22 @@ function Login() {
   const handleLogin = async () => {
     try {
       await logInWithEmailAndPassword(email, password);
+  
+      const userDocRef = doc(db, "users", auth.currentUser.uid);
+      const userDoc = await getDoc(userDocRef);
+  
+      if (!userDoc.exists()) {
+        // Create a user document if it doesn't exist
+        await setDoc(userDocRef, {
+          email: auth.currentUser.email,
+          uid: auth.currentUser.uid,
+        });
+  
+        // Create a tasks subcollection under the user document
+        await setDoc(collection(db, "users", auth.currentUser.uid, "tasks"), {
+        });
+      }
+  
       navigate("/Home");
     } catch (error) {
       console.error(error);

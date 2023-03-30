@@ -26,6 +26,7 @@ function AddTask({ onClose, open, userUid }) {
       const userDocRef = doc(db, "users", userUid);
       const tasksCollectionRef = collection(userDocRef, "tasks");
       const newTaskDocRef = await addDoc(tasksCollectionRef, {
+        uid: userUid,
         title: title,
         description: description,
         completed: false,
