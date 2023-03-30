@@ -1,10 +1,6 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow read and write access to all documents for testing purposes only
-    match /{document=**} {
-      allow read, write: if request.time < timestamp.date(2023, 3, 29);
-    }
 
     // Allow read access to a user's tasks
     match /users/{userId}/tasks/{taskId} {
@@ -14,12 +10,6 @@ service cloud.firestore {
     // Allow users create, update and delete
     match /users/{userId}/tasks/{taskId} {
       allow read, write: if request.auth.uid == userId;
-    }
-
-    // Simple validation check
-    match /users/{userId}/tasks/{taskId} {
-      allow read, write: if request.auth.uid == userId
-          && request.resource.data.title is string
     }
   }
 }

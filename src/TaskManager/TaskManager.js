@@ -6,8 +6,8 @@ Renders said data into the app
 
 import './taskManager.css'
 import Task from '../Task/Task'
-import {useState, useEffect, useCallback} from 'react'
-import {collection, query, orderBy, onSnapshot, getDocs, where} from "firebase/firestore"
+import {useState, useEffect} from 'react'
+import {collection, query, orderBy, onSnapshot} from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
 import { useAuthState } from "react-firebase-hooks/auth"
 import {db, auth} from '../firebase'
@@ -15,28 +15,12 @@ import AddTask from '../AddTask/AddTask'
 
 function TaskManager() {
   const [user, loading] = useAuthState(auth);
-  const [name, setName] = useState("");
   const navigate = useNavigate();
-  const fetchUserName = useCallback(async () => {
-    try {
-      if (user && user.uid) {
-        const q = query(collection(db, "users"), where("uid", "==", user.uid));
-        const doc = await getDocs(q);
-        const data = doc.docs[0].data();
-        setName(data.name);
-        console.log("User name fetched:", data.name);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("An error occurred while fetching user data");
-    }
-  }, [user, setName]);
-  
+
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/");
-    fetchUserName();
-  }, [user, loading, navigate, fetchUserName]);
+  }, [user, loading, navigate]);
 
   const logout = async () => {
     console.log("Before sign out");
@@ -63,7 +47,7 @@ function TaskManager() {
     const taskColRef = query(collection(db, 'users', user?.uid, 'tasks'), orderBy('created', 'desc')) // Firestore query to get all tasks and order by created date in descending order
     console.log("user: ", user);
     console.log("taskColRef: ", taskColRef);  
-    const unsubscribe = onSnapshot(taskColRef, (snapshot) => { // Listen for changes to Firestore task collection
+    const unsubscribe =  onSnapshot(taskColRef, (snapshot) => { // Listen for changes to Firestore task collection
       setTasks(snapshot.docs.map(doc => ({ // Update tasks state variable with data from each Firestore document
         id: doc.id,
         data: doc.data()
@@ -82,7 +66,7 @@ function TaskManager() {
       </button>
       <div className="userDetails">
         Logged in as
-        <div>{name}</div>
+        <div>{user?.displayName}</div>
         <div>{user?.email}</div>
       </div>
       <div className='taskManager__container'>
