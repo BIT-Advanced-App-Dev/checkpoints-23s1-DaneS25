@@ -45,9 +45,7 @@ function TaskManager() {
   // function to get all tasks from firestore in realtime 
   useEffect(() => {
     if (user && user.uid) {
-      const taskColRef = query(collection(db, 'users', user.uid, 'tasks'), orderBy('created', 'desc')); // Firestore query to get all tasks and order by created date in descending order
-      console.log("user: ", user);
-      console.log("taskColRef: ", taskColRef);  
+      const taskColRef = query(collection(db, 'users', user.uid, 'tasks'), orderBy('created', 'desc')); // Firestore query to get all tasks and order by created date in descending order  
       const unsubscribe = onSnapshot(taskColRef, (snapshot) => { // Listen for changes to Firestore task collection
         setTasks(snapshot.docs.map(doc => ({ // Update tasks state variable with data from each Firestore document
           id: doc.id,
@@ -58,7 +56,7 @@ function TaskManager() {
         unsubscribe(); // Unsubscribe from the onSnapshot listener when the component unmounts
       }
     }
-  }, [user, user?.uid]);
+  }, [user]);
 
   return (
     <div className='taskManager'>

@@ -25,14 +25,16 @@ function Login() {
     try {
       await logInWithEmailAndPassword(email, password);
   
-      const userDocRef = doc(db, "users", auth.currentUser.uid);
+      const userDocRef = doc(db, "users", user.uid);
       const userDoc = await getDoc(userDocRef);
   
       if (!userDoc.exists()) {
         // Create a user document if it doesn't exist
         await setDoc(userDocRef, {
-          email: auth.currentUser.email,
-          uid: auth.currentUser.uid,
+          email: user.email,
+          uid: user.uid,
+          name: user.name,
+          authProvider: "local"
         });
   
         // Create a tasks subcollection under the user document
