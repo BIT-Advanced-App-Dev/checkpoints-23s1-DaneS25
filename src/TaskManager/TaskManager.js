@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom"
 import { useAuthState } from "react-firebase-hooks/auth"
 import {db, auth} from '../firebase'
 import AddTask from '../AddTask/AddTask'
+import GroupManager from '../Groups/GroupManager'
 
 function TaskManager() {
   const [user, loading] = useAuthState(auth);
@@ -68,6 +69,7 @@ function TaskManager() {
         Logged in as
         <div>{user?.email}</div>
       </div>
+      <GroupManager />
       <div className='taskManager__container'>
         <button 
           name='Add task +'
