@@ -25,24 +25,27 @@ function Login() {
     try {
       await logInWithEmailAndPassword(email, password);
   
-      const userDocRef = doc(db, "users", user.uid);
-      const userDoc = await getDoc(userDocRef);
-  
-      if (!userDoc.exists()) {
-        // Create a user document if it doesn't exist
-        await setDoc(userDocRef, {
-          email: user.email,
-          uid: user.uid,
-          name: user.name,
-          authProvider: "local"
-        });
-  
-        // Create a tasks subcollection under the user document
-        await setDoc(collection(db, "users", auth.currentUser.uid, "tasks"), {
-        });
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+    
+        if (!userDoc.exists()) {
+          // Create a user document if it doesn't exist
+          await setDoc(userDocRef, {
+            email: user.email,
+            uid: user.uid,
+            name: user.name,
+            authProvider: "local"
+          });
+    
+          // Create a tasks subcollection under the user document
+          await setDoc(collection(db, "users", auth.currentUser.uid, "tasks"), {
+          });
+        }
+    
+        navigate("/Home");
       }
-  
-      navigate("/Home");
+
     } catch (error) {
       console.error(error);
       alert(error.message);
