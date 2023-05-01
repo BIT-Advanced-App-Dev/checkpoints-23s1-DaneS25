@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" );
+.submit {
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 25px;
+    width: 100px;
+    border: none;
+    color: white;
+    background-color: hsl(210, 70%, 50%);
+    border-radius: 8px !important;
+}
+.container {
+    margin-left: 30px;
+}
+
+.form {
+    margin-left: 10px;
+}
+
+.list {
+    margin-left: 10px;
+}
+
+.name {
+    padding-right: 5px;
+    font-size: xx-large;
+}
+
+.join {
+    margin-top: 10px;
+    margin-right: 5px;
+    height: 25px;
+    width: 50px;
+    border: none;
+    color: white;
+    background-color: rgb(125, 188, 125);
+    border-radius: 8px !important;
+}
+
+.view {
+    margin-right: 5px;
+    height: 25px;
+    width: 100px;
+    border: none;
+    color: white;
+    background-color: rgb(223, 173, 92);
+    border-radius: 8px !important;
+}
+
+.leave {
+    margin-right: 5px;
+    height: 25px;
+    width: 50px;
+    border: none;
+    color: white;
+    background-color: rgb(237, 104, 104);
+    border-radius: 8px !important;
+}
+
+.input {
+    height: 25px;
+    border: unset;
+    font-size: 18px;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+    border-bottom: 1.5px solid hsl(210, 10%, 75%);
+    padding-left: 5px;
+    border-radius: 8px !important;
+}
+
+.title {
+    margin-left: 30px;
+    font-size: 50px;
+    font-family: 'Tilt Prism', cursive;
+}
+
+.list {
+    margin-left: 30px;
+}
