@@ -5,6 +5,8 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  query,
+  where
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db, auth } from "../firebase";
@@ -101,6 +103,16 @@ function GroupManager() {
     e.preventDefault();
     const groupRef = doc(db, "groups", groupId);
   
+    // Check if the user is a member of the group
+    const membersRef = collection(groupRef, "members");
+    const memberQuerySnapshot = await getDocs(
+      query(membersRef, where("userId", "==", auth.currentUser.uid))
+    );
+    if (memberQuerySnapshot.empty) {
+      console.log("User is not a member of this group.");
+      return;
+    }
+  
     // Add the task to the group's tasks subcollection
     const tasksRef = collection(groupRef, "tasks");
     await addDoc(tasksRef, {
@@ -128,7 +140,7 @@ function GroupManager() {
   
     setNewTaskTitle("");
     setNewTaskDescription("");
-  };
+  };  
   
   // Use effect to get all groups on mount
   useEffect(() => {
