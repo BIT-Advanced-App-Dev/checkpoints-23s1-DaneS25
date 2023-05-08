@@ -19,9 +19,16 @@ function GroupManager() {
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
   const [selectedGroupId, setSelectedGroupId] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Function to create a new group
   const handleCreateGroup = async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      setErrorMessage("You need to log in to create a group.");
+      return;
+    }
+
     const groupDocRef = await addDoc(collection(db, "groups"), {
       name: newGroupName,
     });
@@ -83,12 +90,18 @@ function GroupManager() {
 
   // Function to add a user to a group
   const handleJoinGroup = async (groupId) => {
+    const user = auth.currentUser;
+    if (!user) {
+      setErrorMessage("You need to log in to join a group.");
+      return;
+    }
+  
     const groupRef = doc(db, "groups", groupId);
     const membersRef = collection(groupRef, "members");
-    await addDoc(membersRef, { userId: auth.currentUser.uid });
+    await addDoc(membersRef, { userId: user.uid });
   
-    console.log(`User ${auth.currentUser.uid} joined group ${groupId}`);
-  };  
+    console.log(`User ${user.uid} joined group ${groupId}`);
+  }; 
 
   // Function to remove a user from a group
   const handleLeaveGroup = async (groupId, userId) => {
@@ -101,6 +114,10 @@ function GroupManager() {
   // Function to add a task to a group
   const handleAddTask = async (e, groupId, newTaskTitle, newTaskDescription) => {
     e.preventDefault();
+    if (!auth.currentUser) {
+      console.log("User is not authenticated.");
+      return;
+    }
     const groupRef = doc(db, "groups", groupId);
   
     // Check if the user is a member of the group
@@ -149,6 +166,7 @@ function GroupManager() {
 
   return (
     <div className="container">
+      {errorMessage && <div>{errorMessage}</div>}
       {/* Form to create a new group */}
       <p className="title">GROUPS</p>
       <form className="form" onSubmit={handleCreateGroup}>
