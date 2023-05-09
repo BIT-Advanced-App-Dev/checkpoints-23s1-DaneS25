@@ -20,6 +20,7 @@ function GroupManager() {
   const [newTaskDescription, setNewTaskDescription] = useState("");
   const [selectedGroupId, setSelectedGroupId] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isMember, setIsMember] = useState(false);
 
   // Function to create a new group
   const handleCreateGroup = async () => {
@@ -101,6 +102,7 @@ function GroupManager() {
     await addDoc(membersRef, { userId: user.uid });
   
     console.log(`User ${user.uid} joined group ${groupId}`);
+    setIsMember(true); 
   }; 
 
   // Function to remove a user from a group
@@ -114,7 +116,8 @@ function GroupManager() {
   // Function to add a task to a group
   const handleAddTask = async (e, groupId, newTaskTitle, newTaskDescription) => {
     e.preventDefault();
-    if (!auth.currentUser) {
+    const user = auth.currentUser;
+    if (!user) {
       console.log("User is not authenticated.");
       return;
     }
@@ -123,7 +126,7 @@ function GroupManager() {
     // Check if the user is a member of the group
     const membersRef = collection(groupRef, "members");
     const memberQuerySnapshot = await getDocs(
-      query(membersRef, where("userId", "==", auth.currentUser.uid))
+      query(membersRef, where("userId", "==", user.uid))
     );
     if (memberQuerySnapshot.empty) {
       console.log("User is not a member of this group.");
@@ -191,7 +194,7 @@ function GroupManager() {
               Leave
             </button>
             {/* Added form to create a task */}
-            {selectedGroupId === group.id && (
+            {selectedGroupId === group.id ? (
               <form className="task-form" onSubmit={(e) => handleAddTask(e, selectedGroupId, newTaskTitle, newTaskDescription)}>
                 <input
                   className="task-input"
@@ -209,19 +212,21 @@ function GroupManager() {
                 />
                 <button className="submit" type="submit">Submit</button>
               </form>
+            ) : (
+              isMember ? (
+                <button className="submit" onClick={() => setSelectedGroupId(group.id)}>
+                  Add Task
+                </button>
+              ) : (
+                <p>You need to be a member to add tasks.</p>
+              )
             )}
-            <button className="submit" onClick={() => setSelectedGroupId(group.id)}>
-              Add Task
-            </button>
             {group.tasks && (
             <ul className="task-list">
               {group.tasks.map((task) => (
                 <p key={task.id}>
-                  <p>TITLE</p>
-                  <span>{task.title}</span>
-                  <p>DESCRIPTION</p>
+                  <h2>{task.title}</h2>
                   <span>{task.description}</span>
-                  <p> </p>
                 </p>
               ))}
             </ul>

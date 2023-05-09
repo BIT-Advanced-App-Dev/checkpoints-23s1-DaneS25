@@ -22,10 +22,9 @@ service cloud.firestore {
     match /groups/{groupId}/members/{userId} {
       allow read, write: if request.auth.uid != null;
     }
-
     // Allow only members of a group to read and write tasks to the group's tasks subcollection
     match /groups/{groupId}/tasks/{taskId} {
-      allow read, write: if exists(/databases/$(database)/documents/groups/$(groupId)/members/$(request.auth.uid));
+      allow read, write: if request.auth.uid != null;
     }
   }
 }
