@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
 .task{
+    font-family: "Lora", serif;
     width: 100%;
     padding: 15px 20px;
     border-left: 4px solid hsl(210, 10%, 75%);
@@ -72,6 +75,7 @@
     justify-content: space-between;
     margin-top: 30px;
     align-items: center;
+    font-family: "Lora", serif;
   }
   
   .task__buttons > button {
@@ -81,6 +85,7 @@
     border: none;
     border-radius: 4px;
     color: white;
+    font-family: "Lora", serif;
   }
   
   .task__buttons > button:hover {
@@ -88,6 +93,7 @@
   }
   
   .task__deleteNedit button {
+    font-family: "Lora", serif;
     margin-right: 20px;
     background-color: transparent;
     border: none;

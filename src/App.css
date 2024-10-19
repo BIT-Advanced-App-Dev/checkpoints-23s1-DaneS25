@@ -1,4 +1,6 @@
 body {
-    background: rgb(246, 160, 230);
-    background: linear-gradient(90deg, rgba(246, 160, 230,1) 0%, rgba(251,209,241,0) 50%, rgb(253, 217, 242)100%);
+    background-image: url('./Assets/todobackground.jpg');
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-position: center; /* Centers the image in the viewport */
 }

@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
 .taskItem{
     margin-top: 20px;
   }
   
   .taskItem h2{
+    font-family: "Lora", serif;
     font-weight: 400;
     text-transform: uppercase;
   }
   
   .taskItem p{
+    font-family: "Lora", serif;
     margin-top: 10px;
     font-size: 18px;
     max-height: 300px;

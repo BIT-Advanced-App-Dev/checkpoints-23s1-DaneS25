@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap" );
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 .register {
     height: 100vh;
@@ -12,12 +12,13 @@
     flex-direction: column;
     text-align: center;
     background-color: #f6b9fb;
-    background: linear-gradient(90deg, rgb(248, 160, 222) 0%, rgba(247, 108, 214, 0) 50%, rgb(224, 122, 193)100%);
+    background: linear-gradient(90deg, rgb(246, 198, 232) 0%, rgba(247, 108, 214, 0) 50%, rgb(246, 198, 232)100%);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 6px 18px -9px hsl(329, 76%, 57%);
   }
   .register__textBox {
+    font-family: "Lora", serif;
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
@@ -26,6 +27,7 @@
     box-shadow: 0 6px 18px -9px hsl(329, 76%, 57%);
   }
   .register__btn {
+    font-family: "Lora", serif;
     padding: 10px;
     font-size: 18px;
     border-radius: 5px;
@@ -38,9 +40,10 @@
   }
   .register div {
     margin-top: 7px;
+    font-family: "Lora", serif;
   }
   .registerHead {
     padding-bottom: 15px;
-    font-family: 'Tilt Prism', cursive;
+    font-family: "Lora", serif;
     font-size: 80px;
   }
